@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\GameCommon">
+      <UniqueIdentifier>{01226e31-5250-46e3-bc97-32b38f2bc3e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineHigh">
+      <UniqueIdentifier>{c2b914b7-1d9e-4e74-a948-0364f8a18a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{dcf81a51-28d0-4a37-96de-051bdc25f4a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow">
+      <UniqueIdentifier>{15635602-11a6-43f9-805b-9246ac536e00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Math">
+      <UniqueIdentifier>{89f5f8cf-89ed-4076-9abb-76c8ac329919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\MemoryManagement">
+      <UniqueIdentifier>{345d0588-8b17-49fa-9b47-326fada7e242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering">
+      <UniqueIdentifier>{8e9ae555-8fef-4085-8ff2-e1bff4b3b29a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib">
+      <UniqueIdentifier>{5033382c-6e95-4580-98ea-1edfeb0c3ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Utility">
+      <UniqueIdentifier>{142c87e5-ca31-4451-812a-0437aa64c8a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib\Buffers">
+      <UniqueIdentifier>{d0407bf0-7478-4c0e-9b7d-a9b240402df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib\Console">
+      <UniqueIdentifier>{ddb72024-5fd4-4858-8625-596a06b3af6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib\Resources">
+      <UniqueIdentifier>{8c019ada-fca3-4c6c-b285-2953697bbfea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib\DDSLoader">
+      <UniqueIdentifier>{df95d5fe-9810-44c1-b86b-d8aaa02f7f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib\Shaders">
+      <UniqueIdentifier>{e4bbf3ab-731b-4a66-86b7-b368643a2eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib\Sprite">
+      <UniqueIdentifier>{5d041e15-54eb-4964-ac89-6bb8b802ca55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Rendering\GLib\System">
+      <UniqueIdentifier>{f4263f40-7007-4e14-8bb8-afc1f71864a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineHigh\Pyhsics">
+      <UniqueIdentifier>{4c1eeab4-13e9-46a9-8f6f-9b311f1875c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\Timing">
+      <UniqueIdentifier>{add27c5c-5e96-476b-a236-db8fd891e6bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\DataType">
+      <UniqueIdentifier>{b5a71fba-1d5c-4c32-8c62-b231ab0acd8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Lua">
+      <UniqueIdentifier>{b5a4b987-90a1-4093-9ed7-bff3efe5002f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\FileOperations">
+      <UniqueIdentifier>{a7956e06-a9cc-4edc-abd3-9a6c1d739c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineLow\JobSystem">
+      <UniqueIdentifier>{bc37e299-29a7-413e-8594-fd4786b7225c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\HashedString">
+      <UniqueIdentifier>{52c182ed-a27d-4157-848e-d26adecd6b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineHigh\CollisionSystem">
+      <UniqueIdentifier>{bab3cbe1-dc3f-41b4-ad9b-f44269741e59}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameCommon\GameObject.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCommon\GameObjectController.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Math\Vector2D.cpp">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\MemoryManagement\BitArray.cpp">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\MemoryManagement\FixedSizeAllocator.cpp">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\MemoryManagement\HeapManager.cpp">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\MemoryManagement\HeapManagerProxy-Sample.cpp">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\MemoryManagement\HeapOperations.cpp">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Utility\Utility.cpp">
+      <Filter>Source Files\Core\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_Buffers\CPUAccessableBuffer.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_Buffers\DrawResourcesBuffer.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_Buffers\ImmutableBuffer.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_Console\ConsolePrint.Win32.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_DDSLoader\DDSTextureLoader.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\DDSLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_System\Device.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_System\Initialization.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_System\Input.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_System\Render.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_System\Service.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_System\Window.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_Sprite\SpriteRender.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Rendering\GLib\_Resources\Texture.cpp">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\Timing\Timing.cpp">
+      <Filter>Source Files\EngineLow\Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineHigh\Physics\Physics.cpp">
+      <Filter>Source Files\EngineHigh\Pyhsics</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\FileOperations\FileOperations.cpp">
+      <Filter>Source Files\EngineLow\FileOperations</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\JobSystem\IJob.cpp">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\JobSystem\JobRunner.cpp">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\JobSystem\JobSystem.cpp">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLow\JobSystem\SharedJobQueue.cpp">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\HashedString\HashedString.cpp">
+      <Filter>Source Files\Core\HashedString</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCommon\ActorCreationManager.cpp">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Math\Vector4D.cpp">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Math\Matrix4x4.cpp">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineHigh\CollisionSystem\CollisionDetection.cpp">
+      <Filter>Source Files\EngineHigh\CollisionSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameCommon\GameObject.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon\GameObjectController.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon\GameObject-inl.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math\Vector2D.h">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math\Vector2D-inl.h">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MemoryManagement\BitArray.h">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MemoryManagement\BlockDescriptor.h">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MemoryManagement\FixedSizeAllocator.h">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MemoryManagement\HeapManager.h">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MemoryManagement\HeapManager-inl.h">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MemoryManagement\HeapManagerProxy.h">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MemoryManagement\HeapOperations.h">
+      <Filter>Source Files\Core\MemoryManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\Utility.h">
+      <Filter>Source Files\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\BasicTypes.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\GLib.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Buffers\CPUAccessableBuffer.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Buffers\DrawResourcesBuffer.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Buffers\DrawResourcesBuffer-inl.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Buffers\IGPUResourceBuffer.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Buffers\ImmutableBuffer.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Console\ConsolePrint.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_DDSLoader\DDSTextureLoader.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\DDSLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_System\Device.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_System\DXHelpers.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_System\DXHelpers-inl.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_System\Helpers.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_System\Initialization.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_System\Input.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_System\Window.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Sprite\SpritePS.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Sprite\SpriteVS.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Rendering\GLib\_Resources\Texture.h">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\Timing\Timing.h">
+      <Filter>Source Files\EngineLow\Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineHigh\Physics\Phyiscs.h">
+      <Filter>Source Files\EngineHigh\Pyhsics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DataType\SmartPtr.h">
+      <Filter>Source Files\Core\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DataType\WeakPtr.h">
+      <Filter>Source Files\Core\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DataType\PtrCounter.h">
+      <Filter>Source Files\Core\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon\PhysicsInfo.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\EngineLow.h">
+      <Filter>Source Files\EngineLow</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Core.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineHigh\EngineHigh.h">
+      <Filter>Source Files\EngineHigh</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon\GameCommon.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon\Renderable.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Lua\lauxlib.h">
+      <Filter>Source Files\Core\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Lua\lua.h">
+      <Filter>Source Files\Core\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Lua\lua.hpp">
+      <Filter>Source Files\Core\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Lua\luaconf.h">
+      <Filter>Source Files\Core\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Lua\lualib.h">
+      <Filter>Source Files\Core\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\FileOperations\FileOperations.h">
+      <Filter>Source Files\EngineLow\FileOperations</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\JobSystem\IJob.h">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\JobSystem\INamed.h">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\JobSystem\JobRunner.h">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\JobSystem\JobSystem.h">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\JobSystem\SharedJobQueue.h">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLow\JobSystem\SharedJobQueue-inl.h">
+      <Filter>Source Files\EngineLow\JobSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\HashedString\HashedString.h">
+      <Filter>Source Files\Core\HashedString</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\HashedString\HashedString-inl.h">
+      <Filter>Source Files\Core\HashedString</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon\ActorCreationManager.h">
+      <Filter>Source Files\GameCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math\Vector4D.h">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math\Matrix4x4.h">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineHigh\CollisionSystem\AABB.h">
+      <Filter>Source Files\EngineHigh\CollisionSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineHigh\CollisionSystem\CollisionDetection.h">
+      <Filter>Source Files\EngineHigh\CollisionSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EngineLow\Rendering\GLib\_System\Initialization.cpp.bak">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </None>
+    <None Include="EngineLow\Rendering\GLib\_System\Service.cpp.bak">
+      <Filter>Source Files\EngineLow\Rendering\GLib\System</Filter>
+    </None>
+    <None Include="EngineLow\Rendering\GLib\_Shaders\VSOutput.hlsli">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="EngineLow\Rendering\GLib\_Shaders\SpritePS.hlsl">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="EngineLow\Rendering\GLib\_Shaders\SpriteVS.hlsl">
+      <Filter>Source Files\EngineLow\Rendering\GLib\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
