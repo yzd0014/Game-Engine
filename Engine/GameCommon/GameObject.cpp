@@ -11,7 +11,8 @@ position(i_position),
 zRotationDegree(0),
 ID(IDPool),
 life(i_life),
-pName(dupstring(i_pName ? i_pName : "Unnamed"))
+pName(dupstring(i_pName ? i_pName : "Unnamed")),
+m_pController(nullptr)
 {//constructor
 	IDPool++;
 }
@@ -22,7 +23,8 @@ GameObject::GameObject(const GameObject &i_other):
 position (i_other.position),
 ID(i_other.ID),
 life(i_other.life),
-pName(dupstring(i_other.pName ? i_other.pName : "Unnamed"))
+pName(dupstring(i_other.pName ? i_other.pName : "Unnamed")),
+m_pController(nullptr)
 {//copy constructor
 	IDPool++;
 }
@@ -35,6 +37,7 @@ GameObject & GameObject::operator=(const GameObject &i_other) {//assignment oper
 	pName = dupstring(i_other.pName ? i_other.pName : "Unnamed");
 	position = i_other.position;
 	life = i_other.life;
+	m_pController = nullptr;
 	//mass = i_other.mass;
 	//velocity = i_other.velocity;
 	return *this;
@@ -49,12 +52,14 @@ life(i_other.life),
 pName(i_other.pName)
 {//move copy constructor
 	i_other.pName = nullptr;
+	m_pController = nullptr;
 }
 GameObject & GameObject::operator=(GameObject &&i_other) {//move assignment operator
 	std::swap(ID, i_other.ID);
 	std::swap(pName, i_other.pName);
 	std::swap(position, i_other.position);
 	std::swap(life, i_other.life);
+	m_pController = nullptr;
 	//std::swap(mass, i_other.mass);
 	//std::swap(velocity, i_other.velocity);
 	return *this;

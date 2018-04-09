@@ -1,5 +1,9 @@
 #pragma once
 #include "Core\Math\Vector2D.h"
+#include "Core\DataType\SmartPtr.h"
+#include "GameObjectController.h"
+//class GameObjectController;
+
 class GameObject {
 public:
 	GameObject();
@@ -26,6 +30,7 @@ public:
 	static unsigned int IDPool;
 	uint8_t life;
 	char * pName;
+	SmartPtr<GameObjectController> m_pController;
 };
 
 #include "GameObject-inl.h"

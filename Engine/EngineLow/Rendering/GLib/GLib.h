@@ -13,7 +13,7 @@ namespace GLib
 
 	void SetKeyStateChangeCallback(KeyStateChange i_Callback);
 
-	bool BeginRendering();
+	bool BeginRendering(bool i_collision);
 	void EndRendering();
 
 	struct Texture;

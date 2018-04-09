@@ -4,9 +4,9 @@
 class SmartMonsterController : public GameObjectController {
 public:
 	SmartMonsterController(WeakPtr<GameObject> i_pGameObject, WeakPtr<GameObject> i_pFocusObject);
-	void setGameObject(WeakPtr<GameObject> i_pObject) override;
-	WeakPtr<GameObject> getGameObject() const override;
-	void updateGameObject() override;
+	void setGameObject(WeakPtr<GameObject> i_pObject);
+	WeakPtr<GameObject> getGameObject() const;
+	Vector2D updateGameObject() override;
 	void setFocusObject(WeakPtr<GameObject> i_pObject);
 	~SmartMonsterController() override;
 

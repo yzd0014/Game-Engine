@@ -5,6 +5,10 @@
 
 template<class T>
 class WeakPtr {
+	template<class U>
+	friend class SmartPtr;
+	template<class U>
+	friend class WeakPtr;
 public:
 	WeakPtr() :
 		m_ptr(nullptr),
@@ -22,21 +26,34 @@ public:
 			m_pWeakCounter = new PtrCounter(0, 1);
 		}
 	}
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 	WeakPtr(const SmartPtr<T> & i_other) ://copy constructor
 		m_ptr(i_other.m_ptr),
 		m_pWeakCounter(i_other.m_pRefCounter)
 	{
 		if (m_pWeakCounter != nullptr)(*m_pWeakCounter).weakCounter++;
 	}
-	
+	template<class U>
+	WeakPtr(const SmartPtr<U> & i_other) ://copy constructor
+		m_ptr(i_other.m_ptr),
+		m_pWeakCounter(i_other.m_pRefCounter)
+	{
+		if (m_pWeakCounter != nullptr)(*m_pWeakCounter).weakCounter++;
+	}
 	WeakPtr(const WeakPtr & i_other) ://copy constructor
 		m_ptr(i_other.m_ptr),
 		m_pWeakCounter(i_other.m_pWeakCounter)
 	{
 		if (m_pWeakCounter != nullptr)(*m_pWeakCounter).weakCounter++;
 	}
-
+	template<class U>
+	WeakPtr(const WeakPtr<U> & i_other) ://copy constructor
+		m_ptr(i_other.m_ptr),
+		m_pWeakCounter(i_other.m_pWeakCounter)
+	{
+		if (m_pWeakCounter != nullptr)(*m_pWeakCounter).weakCounter++;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	WeakPtr & operator=(const SmartPtr<T> & i_other) {//asignment operator
 		if (m_ptr != i_other.m_ptr) {
 			if (m_ptr != nullptr) {
@@ -48,7 +65,18 @@ public:
 		}
 		return *this;
 	}
-
+	template<class U>
+	WeakPtr & operator=(const SmartPtr<U> & i_other) {//asignment operator
+		if (m_ptr != i_other.m_ptr) {
+			if (m_ptr != nullptr) {
+				ReleaseCurrentReference();
+			}
+			m_ptr = i_other.m_ptr;
+			m_pWeakCounter = i_other.m_pRefCounter;
+			if (m_pWeakCounter != nullptr)(*m_pWeakCounter).weakCounter++;
+		}
+		return *this;
+	}
 	WeakPtr & operator=(const WeakPtr & i_other) {//asignment operator
 		if (m_ptr != i_other.m_ptr) {
 			if (m_ptr != nullptr) {
@@ -58,7 +86,17 @@ public:
 		}
 		return *this;
 	}
-
+	template<class U>
+	WeakPtr & operator=(const WeakPtr<U> & i_other) {//asignment operator
+		if (m_ptr != i_other.m_ptr) {
+			if (m_ptr != nullptr) {
+				ReleaseCurrentReference();
+			}
+			AquireNewReference(i_other);
+		}
+		return *this;
+	}
+	///////////////////////////////////////////////////////////////////////////////
 	WeakPtr & operator=(T * i_ptr) {//assigment operator for null
 		if (m_ptr != i_ptr) {
 			if (m_ptr != nullptr) {

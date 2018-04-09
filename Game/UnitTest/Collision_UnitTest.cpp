@@ -18,7 +18,8 @@ bool Collision_UnitTest() {
 		A_BoudningBox.center = Vector2D(0, 0);
 		A_BoudningBox.extends = Vector2D(1, 2);
 		PhysicsInfo A_info(gameObject_A, 0, 0);
-		A_info.velocity = Vector2D(1, 0);
+		A_info.velocity = Vector2D(10, 0);
+		A_info.frameVelocity = A_info.velocity;
 		A_info.m_BoundingBox = A_BoudningBox;
 
 		SmartPtr<GameObject> gameObject_B(new GameObject("B", Vector2D(5, 0), 100));
@@ -28,11 +29,16 @@ bool Collision_UnitTest() {
 		B_BoudningBox.extends = Vector2D(1, 1);
 		PhysicsInfo B_info(gameObject_B, 0, 0);
 		B_info.velocity = Vector2D(0, 0);
+		B_info.frameVelocity = B_info.velocity;
 		B_info.m_BoundingBox = B_BoudningBox;
 
 		//simulation of game loop
 		for (int i = 0; i < 20; i++) {
-			Engine::CollisionDetection(A_info, B_info, A_info.velocity, B_info.velocity, 1);
+			Vector4D normal_A;
+			Vector4D normal_B;
+			float ColTime;
+			Engine::CollisionDetection(A_info, B_info, 1, normal_A, ColTime);
+			normal_B = -1 * normal_A;
 			gameObject_A->position = gameObject_A->position + A_info.velocity;
 			gameObject_B->position = gameObject_B->position + B_info.velocity;
 		}

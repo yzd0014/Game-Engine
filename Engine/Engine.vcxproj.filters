@@ -85,15 +85,18 @@
     <Filter Include="Source Files\EngineHigh\CollisionSystem">
       <UniqueIdentifier>{bab3cbe1-dc3f-41b4-ad9b-f44269741e59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Core\Messaging">
+      <UniqueIdentifier>{81d9bcc9-ae22-4187-a35d-7788d8ec9e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\InputSystem">
+      <UniqueIdentifier>{65c600c1-45da-4a6c-b2ec-e735f94da954}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameCommon\GameObject.cpp">
-      <Filter>Source Files\GameCommon</Filter>
-    </ClCompile>
-    <ClCompile Include="GameCommon\GameObjectController.cpp">
       <Filter>Source Files\GameCommon</Filter>
     </ClCompile>
     <ClCompile Include="Core\Math\Vector2D.cpp">
@@ -194,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="EngineHigh\CollisionSystem\CollisionDetection.cpp">
       <Filter>Source Files\EngineHigh\CollisionSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\InputSystem\InputHub.cpp">
+      <Filter>Source Files\Core\InputSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +391,21 @@
     </ClInclude>
     <ClInclude Include="EngineHigh\CollisionSystem\CollisionDetection.h">
       <Filter>Source Files\EngineHigh\CollisionSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DataType\EngineMacro.h">
+      <Filter>Source Files\Core\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineHigh\CollisionSystem\CollisionPair.h">
+      <Filter>Source Files\EngineHigh\CollisionSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DataType\Delegate.h">
+      <Filter>Source Files\Core\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Messaging\Messaging.h">
+      <Filter>Source Files\Core\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\InputSystem\InputHub.h">
+      <Filter>Source Files\Core\InputSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

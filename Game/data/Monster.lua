@@ -1,8 +1,8 @@
 Actor = {
 	name = "BadGuy",
-	position = {180, -350},
+	position = {0, -350},
 	health = 100,
-	mass = 10,
-	drag = 5,
+	mass = 1,
+	drag = 0.1,
 	sprite = "data\\BadGuy.dds"
 }

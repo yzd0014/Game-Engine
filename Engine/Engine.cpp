@@ -1,12 +1,14 @@
 #include<stdio.h>
 #include <iostream>
 #include "Core\Core.h"
+#include "Core\InputSystem\InputHub.h"
 
 namespace Engine
 {
 	void * initPointer;
 	
 	void init() {
+		InputHub::Init();
 		printf("game engine is initialized.\n");
 	}
 	void initHeap(size_t i_blockSize, int numOfDescriptors) {

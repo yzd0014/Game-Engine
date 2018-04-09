@@ -15,7 +15,7 @@
 #include "Renderable.h"
 
 
-GLib::Sprites::Sprite * CreateSprite(const char * i_pFilename)
+GLib::Sprites::Sprite * CreateSprite(const char * i_pFilename, PhysicsInfo & o_physicsInfo)
 {
 	Engine::m_mutex.lock();
 	assert(i_pFilename);
@@ -49,6 +49,10 @@ GLib::Sprites::Sprite * CreateSprite(const char * i_pFilename)
 	GLib::Sprites::SpriteEdges	Edges = { -float(width / 2.0f), float(height), float(width / 2.0f), 0.0f };
 	GLib::Sprites::SpriteUVs	UVs = { { 0.0f, 0.0f },{ 1.0f, 0.0f },{ 0.0f, 1.0f },{ 1.0f, 1.0f } };
 	GLib::RGBA							Color = { 255, 255, 255, 255 };
+
+	//define bouding boxes
+	o_physicsInfo.m_BoundingBox.center = Vector2D(0.0f, float(height / 2.0f));
+	o_physicsInfo.m_BoundingBox.extends = Vector2D(float(width / 2.0f), float(height / 2.0f));
 
 	// Create the sprite
 	GLib::Sprites::Sprite * pSprite = GLib::Sprites::CreateSprite(Edges, 0.1f, Color, UVs);
@@ -207,7 +211,7 @@ public:
 				delete[] pName;
 				phXInfo = PhysicsInfo(pActor, mass, drag);
 				renderInfo.m_pObject = pActor;
-				renderInfo.m_pSprite = CreateSprite(pSpriteDir);
+				renderInfo.m_pSprite = CreateSprite(pSpriteDir, phXInfo);
 				delete[] pSpriteDir;
 			}
 

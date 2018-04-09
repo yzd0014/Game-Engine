@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\HashedString\HashedString.cpp" />
+    <ClCompile Include="Core\InputSystem\InputHub.cpp" />
     <ClCompile Include="Core\Math\Matrix4x4.cpp" />
     <ClCompile Include="Core\Math\Vector2D.cpp" />
     <ClCompile Include="Core\Math\Vector4D.cpp" />
@@ -172,15 +173,17 @@
     <ClCompile Include="EngineLow\Timing\Timing.cpp" />
     <ClCompile Include="GameCommon\ActorCreationManager.cpp" />
     <ClCompile Include="GameCommon\GameObject.cpp" />
-    <ClCompile Include="GameCommon\GameObjectController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Core.h" />
+    <ClInclude Include="Core\DataType\Delegate.h" />
+    <ClInclude Include="Core\DataType\EngineMacro.h" />
     <ClInclude Include="Core\DataType\PtrCounter.h" />
     <ClInclude Include="Core\DataType\SmartPtr.h" />
     <ClInclude Include="Core\DataType\WeakPtr.h" />
     <ClInclude Include="Core\HashedString\HashedString-inl.h" />
     <ClInclude Include="Core\HashedString\HashedString.h" />
+    <ClInclude Include="Core\InputSystem\InputHub.h" />
     <ClInclude Include="Core\Lua\lauxlib.h" />
     <ClInclude Include="Core\Lua\lua.h" />
     <ClInclude Include="Core\Lua\lua.hpp" />
@@ -197,10 +200,12 @@
     <ClInclude Include="Core\MemoryManagement\HeapManager.h" />
     <ClInclude Include="Core\MemoryManagement\HeapManagerProxy.h" />
     <ClInclude Include="Core\MemoryManagement\HeapOperations.h" />
+    <ClInclude Include="Core\Messaging\Messaging.h" />
     <ClInclude Include="Core\Utility\Utility.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineHigh\CollisionSystem\AABB.h" />
     <ClInclude Include="EngineHigh\CollisionSystem\CollisionDetection.h" />
+    <ClInclude Include="EngineHigh\CollisionSystem\CollisionPair.h" />
     <ClInclude Include="EngineHigh\EngineHigh.h" />
     <ClInclude Include="EngineHigh\Physics\Phyiscs.h" />
     <ClInclude Include="EngineLow\EngineLow.h" />

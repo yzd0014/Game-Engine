@@ -1,6 +1,7 @@
 #pragma once
 #include <assert.h>
 #include "PtrCounter.h"
+#include "Core\MemoryManagement\HeapOperations.h"
 
 template<class T>
 class WeakPtr;
@@ -8,6 +9,8 @@ class WeakPtr;
 template<class T>
 class SmartPtr {
 	friend class WeakPtr<T>;
+	template<class U>
+	friend class SmartPtr;
 public:
 	SmartPtr() :
 		m_ptr(nullptr),
@@ -25,13 +28,32 @@ public:
 			m_pRefCounter = new PtrCounter(1, 0);
 		}
 	}
+	////////////////////////////////////////////////////////////////////////////////////////
 	SmartPtr(const SmartPtr & i_other)://copy constructor
 		m_ptr(i_other.m_ptr),
 		m_pRefCounter(i_other.m_pRefCounter)
 	{
 		if(m_pRefCounter != nullptr)(*m_pRefCounter).refCounter++;
 	}
+	template<class U>
+	SmartPtr(const SmartPtr<U> & i_other) ://copy constructor for inherent
+		m_ptr(i_other.m_ptr),
+		m_pRefCounter(i_other.m_pRefCounter)
+	{
+		if (m_pRefCounter != nullptr)(*m_pRefCounter).refCounter++;
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////
 	SmartPtr & operator=(const SmartPtr & i_other) {//asignment operator
+		if (m_ptr != i_other.m_ptr) {
+			if (m_ptr != nullptr) {
+				ReleaseCurrentReference();
+			}
+			AquireNewReference(i_other);
+		}
+		return *this;
+	}
+	template<class U>
+	SmartPtr & operator=(const SmartPtr<U> & i_other) {//asignment operator for inherent
 		if (m_ptr != i_other.m_ptr) {
 			if (m_ptr != nullptr) {
 				ReleaseCurrentReference();
@@ -57,7 +79,7 @@ public:
 		}
 		return *this;
 	}
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
 	bool operator>(const SmartPtr & i_other) {
 		return m_ptr > i_other.m_ptr;
 	}

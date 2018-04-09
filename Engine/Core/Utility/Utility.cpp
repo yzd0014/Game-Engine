@@ -33,6 +33,6 @@ namespace Engine
 	}
 
 	bool floatEqual(float i_left, float i_right) {
-		return abs(i_left - i_right) < 0.000001f;
+		return abs(i_left - i_right) < 0.0001f;
 	}
 }

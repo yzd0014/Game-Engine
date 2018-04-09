@@ -16,9 +16,23 @@ WeakPtr<GameObject> SmartMonsterController::getGameObject() const {
 	return gameObject;
 }
 
-void SmartMonsterController::updateGameObject() {
+Vector2D SmartMonsterController::updateGameObject() {
 	//assert(gameObject);
+	Vector2D force4Monster;
+	SmartPtr<GameObject> pPlayer = focusObject.Aquire();
+	SmartPtr<GameObject> m_pMonster = gameObject.Aquire();
+	Vector2D dir = pPlayer->position - m_pMonster->position;
 
+	if (dir.get_x() != 0 || dir.get_y() != 0) {
+		dir.normalize();
+		//dir = dir * 0.01f;
+		force4Monster = dir * 200.0f;
+	}
+	else {
+		force4Monster = Vector2D(0.0f, 0.0f);
+	}
+
+	return force4Monster;
 }
 
 void SmartMonsterController::setFocusObject(WeakPtr<GameObject> i_pObject) {

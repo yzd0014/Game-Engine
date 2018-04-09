@@ -5,13 +5,19 @@
 
 namespace GLib
 {
-bool BeginRendering( void )
+bool BeginRendering( bool i_Collision )
 {
 	assert( g_pImmediateContext );
 	assert( g_pSwapChain );
 
 	// Just clear the backbuffer
-	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, DirectX::Colors::MidnightBlue );
+	if(i_Collision == true){
+		g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, DirectX::Colors::Cyan);
+	}
+	else {
+		g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, DirectX::Colors::MidnightBlue);
+	}
+	
 
 	if( g_pDepthStencilView )
 		g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );
