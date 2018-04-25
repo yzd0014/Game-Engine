@@ -91,9 +91,9 @@
     <Filter Include="Source Files\Core\InputSystem">
       <UniqueIdentifier>{65c600c1-45da-4a6c-b2ec-e735f94da954}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <Filter Include="Source Files\Core\Profiling">
+      <UniqueIdentifier>{dd3e8f85-27d2-4c9c-aa8f-41d7213fb8d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameCommon\GameObject.cpp">
@@ -200,6 +200,15 @@
     </ClCompile>
     <ClCompile Include="Core\InputSystem\InputHub.cpp">
       <Filter>Source Files\Core\InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Profiling\Profiler.cpp">
+      <Filter>Source Files\Core\Profiling</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Profiling\Accumulator.cpp">
+      <Filter>Source Files\Core\Profiling</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCommon\SpriteFactory.cpp">
+      <Filter>Source Files\GameCommon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +415,24 @@
     </ClInclude>
     <ClInclude Include="Core\InputSystem\InputHub.h">
       <Filter>Source Files\Core\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math\MathMacro.h">
+      <Filter>Source Files\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Profiling\Profiler.h">
+      <Filter>Source Files\Core\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Profiling\Accumulator.h">
+      <Filter>Source Files\Core\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Profiling\ScopedTimer.h">
+      <Filter>Source Files\Core\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Profiling\Profiling.h">
+      <Filter>Source Files\Core\Profiling</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon\SpriteFactory.h">
+      <Filter>Source Files\GameCommon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

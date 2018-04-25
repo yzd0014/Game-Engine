@@ -4,3 +4,4 @@
 #include "GameCommon\PhysicsInfo.h"
 #include "GameCommon\Renderable.h"
 #include "GameCommon\ActorCreationManager.h"
+#include "GameCommon\SpriteFactory.h"

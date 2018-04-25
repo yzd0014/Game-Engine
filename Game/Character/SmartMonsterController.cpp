@@ -5,6 +5,8 @@ SmartMonsterController::SmartMonsterController(WeakPtr<GameObject> i_pGameObject
 gameObject(i_pGameObject),
 focusObject(i_pFocusObject)
 {
+	hitEventOverided = true;
+	physicsVel = Vector2D(0.0f, 0.0f);
 }
 
 
@@ -33,6 +35,14 @@ Vector2D SmartMonsterController::updateGameObject() {
 	}
 
 	return force4Monster;
+}
+
+void SmartMonsterController::hit(PhysicsInfo & i_phyXInfo) {
+	SmartPtr<GameObject> objectHit = i_phyXInfo.m_pObject.Aquire();
+	char * nameExpected = {"Ship"};
+	if (strcmp(objectHit->pName, nameExpected) == 0) {
+		DEBUG_PRINT_INFO("Ship is hit by Asteroid");
+	}
 }
 
 void SmartMonsterController::setFocusObject(WeakPtr<GameObject> i_pObject) {

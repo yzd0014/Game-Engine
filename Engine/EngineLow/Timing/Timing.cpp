@@ -23,4 +23,17 @@ namespace Timing {
 		g_LastFrameStartTick = currentTick;
 		return g_LastFrameTime_ms;
 	}
+
+	LONGLONG getCurrentTick() {
+		LARGE_INTEGER currentTick;
+		QueryPerformanceCounter(&currentTick);
+		return currentTick.QuadPart;
+	}
+
+	float getTimeDiff_ms(LONGLONG tickDiff) {
+		LARGE_INTEGER Frequency;
+		QueryPerformanceFrequency(&Frequency);
+		float timeDiff = (float)tickDiff / Frequency.QuadPart * 1000.0f;
+		return timeDiff;
+	}
 }

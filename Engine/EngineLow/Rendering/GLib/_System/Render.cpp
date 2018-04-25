@@ -15,7 +15,7 @@ bool BeginRendering( bool i_Collision )
 		g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, DirectX::Colors::Cyan);
 	}
 	else {
-		g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, DirectX::Colors::MidnightBlue);
+		g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, DirectX::Colors::Black);
 	}
 	
 

@@ -1,0 +1,18 @@
+In Matrix_StressUnitTest.cpp, it computes matrix multiplication for 1,000,000 times, the result will 
+show how much time it takes to finish all of them. 
+For collision detection, the game will be run for 30 seconds, the result will show the average execution 
+time for the function. The number of function's execution is also printed. Visual Studio's sampling profiler 
+will also be run for 30 seconds.
+
+SIMD version:
+matrix stress test: 128598.000000 ticks(46.896130 ms)
+Non-SIMD version: 
+matrix stress test: 168900.000000 ticks(61.593151 ms)
+
+SIMD version:
+Average collision detection(340938 times): 3.928380 ticks(0.001094 ms)
+3.2% time is spend on CollisionDetection according to Visual Studio's profiler
+Non-SIMD version:
+Average collision detection(331848 times): 4.191401 ticks(0.001459 ms)
+3.3% time is spend on CollisionDetection according to Visual Studio's profiler
+

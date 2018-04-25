@@ -1,7 +1,10 @@
 #include "Matrix4x4.h"
 #include "Vector4D.h"
 #include "Core\MemoryManagement\HeapOperations.h"
+#include "MathMacro.h"
+
 #include "assert.h"
+#include <smmintrin.h>
 
 #define PI 3.14159265
 
@@ -108,7 +111,14 @@ Matrix4x4 Matrix4x4::getCofactors() {
 	return output;
 }
 
-Matrix4x4 Matrix4x4::getTranspose() {
+Matrix4x4 Matrix4x4::getTranspose() const{
+#if defined SIMD
+	Matrix4x4 output;
+	for (int i = 0; i < 4; i++) {
+		output.rows[i] = _mm_set_ps(m_Value[i + 12], m_Value[i+8], m_Value[i+4], m_Value[i]);
+	}
+	return output;
+#else
 	Matrix4x4 output;
 	int i = 0;
 	int j = 0;
@@ -120,13 +130,19 @@ Matrix4x4 Matrix4x4::getTranspose() {
 	}
 	
 	return output;
+#endif
 }
 
 Matrix4x4 Matrix4x4::getInverse() {
 	Matrix4x4 output = getCofactors();
 	Matrix4x4 temp = output;
-
+	
 	//get transpose matrix
+#if defined SIMD
+	for (int i = 0; i < 4; i++) {
+		output.rows[i] = _mm_set_ps(temp.m_Value[i + 12], temp.m_Value[i + 8], temp.m_Value[i + 4], temp.m_Value[i]);
+}
+#else
 	int i = 0;
 	int j = 0;
 	while (j < 16) {
@@ -135,7 +151,8 @@ Matrix4x4 Matrix4x4::getInverse() {
 		i = i + 4;
 		if (i > 15)i = i - 15;
 	}
-
+#endif	
+	
 	float m_Determiant = getDetermiant();
 	assert(m_Determiant != 0);
 	for (int i = 0; i < 16; i++) {
@@ -145,26 +162,63 @@ Matrix4x4 Matrix4x4::getInverse() {
 }
 
 Matrix4x4 Matrix4x4::operator*(const Matrix4x4 & i_other) {
+#if defined SIMD
 	Matrix4x4 output;
-	for (int row = 0; row < 4; row++) {
-		for (int column = 0; column < 4; column++) {
-			output.m_Value[row * 4 + column] = 0;
-			for (int k = 0; k < 4; k++) {
-				output.m_Value[row * 4 + column] += m_Value[row * 4 + k] * i_other.m_Value[k * 4 + column];
-			}
-		}
+	Matrix4x4 a_transpose = getTranspose();
+	Matrix4x4 b_transpose = i_other.getTranspose();
+	//__m128 a_line, b_line, r_line;
+	__m128 b_line, r_line;
+	for (int i = 0; i < 16; i+=4) {
+		//a_line = _mm_load_ps(a_transpose.m_Value);
+		b_line = _mm_set1_ps(b_transpose.m_Value[i]);
+		r_line = _mm_mul_ps(a_transpose.rows[0], b_line);
+
+		b_line = _mm_set1_ps(b_transpose.m_Value[i + 1]);
+		r_line = _mm_add_ps(_mm_mul_ps(a_transpose.rows[1], b_line), r_line);
+
+		b_line = _mm_set1_ps(b_transpose.m_Value[i + 2]);
+		r_line = _mm_add_ps(_mm_mul_ps(a_transpose.rows[2], b_line), r_line);
+
+		b_line = _mm_set1_ps(b_transpose.m_Value[i + 3]);
+		r_line = _mm_add_ps(_mm_mul_ps(a_transpose.rows[3], b_line), r_line);
+		_mm_store_ps(&output.m_Value[i], r_line);
+	}
+	output = output.getTranspose();
+	return output;
+
+#else
+	Matrix4x4 output;
+	for (int i = 0; i < 4; i++) {
+		output.m_Value[i] = m_Value[0] * i_other.m_Value[i] + m_Value[1] * i_other.m_Value[4 + i] + m_Value[2] * i_other.m_Value[8 + i] + m_Value[3] * i_other.m_Value[12 + i];
+		output.m_Value[4 + i] = m_Value[4] * i_other.m_Value[i] + m_Value[5] * i_other.m_Value[4 + i] + m_Value[6] * i_other.m_Value[8 + i] + m_Value[7] * i_other.m_Value[12 + i];
+		output.m_Value[8 + i] = m_Value[8] * i_other.m_Value[i] + m_Value[9] * i_other.m_Value[4 + i] + m_Value[10] * i_other.m_Value[8 + i] + m_Value[11] * i_other.m_Value[12 + i];
+		output.m_Value[12 + i] = m_Value[12] * i_other.m_Value[i] + m_Value[13] * i_other.m_Value[4 + i] + m_Value[14] * i_other.m_Value[8 + i] + m_Value[15] * i_other.m_Value[12 + i];
 	}
 	return output;
+#endif
 }
 
 Vector4D Matrix4x4::operator*(const Vector4D & i_vector) {
 	Vector4D output;
-	
+#if defined SIMD	
+	__m128 r = _mm_dp_ps(rows[0], i_vector.m_vec, 0xf1);
+	output.x = _mm_cvtss_f32(r);
+
+	r = _mm_dp_ps(rows[1], i_vector.m_vec, 0xf1);
+	output.y = _mm_cvtss_f32(r);
+
+	r = _mm_dp_ps(rows[2], i_vector.m_vec, 0xf1);
+	output.z = _mm_cvtss_f32(r);
+
+	r = _mm_dp_ps(rows[3], i_vector.m_vec, 0xf1);
+	output.w = _mm_cvtss_f32(r);
+
+#else
 	output.x = m_Value[0] * i_vector.x + m_Value[1] * i_vector.y + m_Value[2] * i_vector.z + m_Value[3] * i_vector.w;
 	output.y = m_Value[4] * i_vector.x + m_Value[5] * i_vector.y + m_Value[6] * i_vector.z + m_Value[7] * i_vector.w;
 	output.z = m_Value[8] * i_vector.x + m_Value[9] * i_vector.y + m_Value[10] * i_vector.z + m_Value[11] * i_vector.w;
 	output.w = m_Value[12] * i_vector.x + m_Value[13] * i_vector.y + m_Value[14] * i_vector.z + m_Value[15] * i_vector.w;
-
+#endif
 	return output;
 }
 

@@ -1,6 +1,9 @@
 #pragma once
 #include "math.h"
 #include "assert.h"
+#include <smmintrin.h>
+#include "MathMacro.h"
+
 class Vector4D {
 public:
 	Vector4D();
@@ -16,10 +19,16 @@ public:
 		z = z / length;
 	}
 	
-	float x;
-	float y;
-	float z;
-	float w;
+	union {
+		struct
+		{
+			float x;
+			float y;
+			float z;
+			float w;
+		};
+		__m128 m_vec;
+	};
 };
 
 inline Vector4D operator+(const Vector4D& l_value, const Vector4D& r_value) {
@@ -36,5 +45,11 @@ inline Vector4D operator*(float l_value, const Vector4D& r_value) {
 	return Vector4D(r_value.x * l_value, r_value.y * l_value, r_value.z * l_value, r_value.w);
 }
 inline float dot(const Vector4D &l_value, const Vector4D &r_value) {
-	return l_value.x * r_value.x + l_value.y * r_value.y + l_value.z * r_value.z;
+#if defined SIMD
+	__m128 r = _mm_dp_ps(l_value.m_vec, r_value.m_vec, 0xf1);
+	float dot = _mm_cvtss_f32(r);
+	return dot;
+#else
+	return l_value.x * r_value.x + l_value.y * r_value.y + l_value.z * r_value.z + l_value.w * r_value.w;
+#endif
 }

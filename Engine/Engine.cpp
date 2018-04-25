@@ -2,11 +2,10 @@
 #include <iostream>
 #include "Core\Core.h"
 #include "Core\InputSystem\InputHub.h"
-
 namespace Engine
 {
 	void * initPointer;
-	
+	float deltaTime = 0;
 	void init() {
 		InputHub::Init();
 		printf("game engine is initialized.\n");
@@ -30,6 +29,10 @@ namespace Engine
 		FixedSizeAllocator * pFSA_64 = static_cast<FixedSizeAllocator *>(HeapManager::heapManager->_alloc(sizeof(FixedSizeAllocator)));
 		FixedSizeAllocator::FSAs[3] = new (pFSA_64) FixedSizeAllocator(72, 1 * 1024);
 	}
+	
+	float getDeltaTime() {
+		return deltaTime;
+	}
 	void shutDownHeap() {
 		for (int i = 0; i < 4; i++) {
 			delete FixedSizeAllocator::FSAs[i];
@@ -43,4 +46,5 @@ namespace Engine
 		HeapManager::heapManager = nullptr;
 		_aligned_free(initPointer);
 	}
+
 }

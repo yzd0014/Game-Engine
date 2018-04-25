@@ -16,14 +16,14 @@
 namespace Engine {
 	extern std::mutex m_mutex;
 	extern std::condition_variable m_condVar;
-	//void CreateActor(const char * i_pScriptFilename, SmartPtr<GameObject> &o_pActor, PhysicsInfo &o_phXInfo, Renderable &o_renderInfo);
-	//GLib::Sprites::Sprite * CreateSprite(const char * i_pFilename);
+	
 }
 
 class ActorCreationManager {
 public:
 	ActorCreationManager(int i_numOfActors);
-	void CreateActor(const char * i_pScriptFilename, SmartPtr<GameObject> &o_pActor, PhysicsInfo &o_phXInfo, Renderable &o_renderInfo);
+	void CreateActor(const char * i_pScriptFilename, SmartPtr<GameObject> &o_pActor, PhysicsInfo &o_phXInfo,
+		AABB i_actorBB, Renderable & o_renderable, GLib::Sprites::Sprite * i_Sprite);
 	void initACM();
 	void shutDownACM();
 private:

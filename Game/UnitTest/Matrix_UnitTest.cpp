@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "assert.h"
+#include <time.h>
 bool Matrix_UnitTest() {
 	float a1[16] = {1, 0, 0, 0,
 				   0, 40, 41, 0,
@@ -107,6 +108,30 @@ bool Matrix_UnitTest() {
 	assert(Engine::floatEqual(v_Start.y, v_End.y));
 	assert(Engine::floatEqual(v_Start.z, v_End.z));
 	assert(Engine::floatEqual(v_Start.w, v_End.w));
+
+	//vector4 dot product test
+	Vector4D vec1(1, 2, 3, 4);
+	Vector4D vec2(4, 3, 2, 1);
+	float mDot = dot(vec1, vec2);
+	assert(Engine::floatEqual(mDot, 20));
 	
+	LONGLONG start = Timing::getCurrentTick();
+	clock_t t;
+	t = clock();
+	Vector4D r_v;
+	Vector4D v_test(1, 2, 3, 4);
+	Matrix4x4 r_m;
+	for (int i = 0; i < 1000000; i++) {
+		r_m = m2 * m3;
+		//r_v = m1*v_test;
+	}
+	//PROFILING_PRINT_INFO("%f", r_v.x);
+	PROFILING_PRINT_INFO("%f", r_m.m_Value[0]);
+	LONGLONG end = Timing::getCurrentTick();
+	long ticks = long(end - start);
+	t = clock() - t;
+	//float time = Timing::getTimeDiff_ms(start, end);
+	PROFILING_PRINT_INFO("elapsed tick (tick version)%d", ticks);
+	PROFILING_PRINT_INFO("elapsed tick (clock version)%f", (float)t);
 	return true;
 }

@@ -9,8 +9,9 @@
 namespace Engine
 {
 	extern void * initPointer;
-	
+	extern float deltaTime;
 	void init();
 	void initHeap(size_t i_blockSize, int numOfDescriptors);
 	void shutDownHeap();
+	float getDeltaTime();
 }

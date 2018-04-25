@@ -21,15 +21,15 @@ public:
 	inline uint8_t getLife();
 	inline void setLife(uint8_t i_life);
 	~GameObject();
-	//Vector2D velocity;
-	//float mass;
-//private: 
+	
+	//Vector2D forwardVector;
 	Vector2D position;
 	float zRotationDegree;
 	unsigned int ID;
 	static unsigned int IDPool;
 	uint8_t life;
 	char * pName;
+	bool active;
 	SmartPtr<GameObjectController> m_pController;
 };
 

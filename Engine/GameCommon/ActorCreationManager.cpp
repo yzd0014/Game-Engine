@@ -7,68 +7,12 @@
 #include "Core\Lua\lua.hpp"
 #include "Core\Utility\Utility.h"
 #include "EngineLow\EngineLow.h"
-
+#include "EngineHigh\CollisionSystem\AABB.h"
 
 #include "GameObject.h"
 #include "GameObjectController.h"
 #include "PhysicsInfo.h"
 #include "Renderable.h"
-
-
-GLib::Sprites::Sprite * CreateSprite(const char * i_pFilename, PhysicsInfo & o_physicsInfo)
-{
-	Engine::m_mutex.lock();
-	assert(i_pFilename);
-
-	size_t sizeTextureFile = 0;
-
-	// Load the source file (texture data)
-	void * pTextureFile = Engine::LoadFile(i_pFilename, sizeTextureFile);
-
-	// Ask GLib to create a texture out of the data (assuming it was loaded successfully)
-	GLib::Texture * pTexture = pTextureFile ? GLib::CreateTexture(pTextureFile, sizeTextureFile) : nullptr;
-
-	// exit if something didn't work
-	// probably need some debug logging in here!!!!
-	if (pTextureFile)
-		delete[] pTextureFile;
-
-	if (pTexture == nullptr)
-		return NULL;
-
-	unsigned int width = 0;
-	unsigned int height = 0;
-	unsigned int depth = 0;
-
-	// Get the dimensions of the texture. We'll use this to determine how big it is on screen
-	bool result = GLib::GetDimensions(pTexture, width, height, depth);
-	assert(result == true);
-	assert((width > 0) && (height > 0));
-
-	// Define the sprite edges
-	GLib::Sprites::SpriteEdges	Edges = { -float(width / 2.0f), float(height), float(width / 2.0f), 0.0f };
-	GLib::Sprites::SpriteUVs	UVs = { { 0.0f, 0.0f },{ 1.0f, 0.0f },{ 0.0f, 1.0f },{ 1.0f, 1.0f } };
-	GLib::RGBA							Color = { 255, 255, 255, 255 };
-
-	//define bouding boxes
-	o_physicsInfo.m_BoundingBox.center = Vector2D(0.0f, float(height / 2.0f));
-	o_physicsInfo.m_BoundingBox.extends = Vector2D(float(width / 2.0f), float(height / 2.0f));
-
-	// Create the sprite
-	GLib::Sprites::Sprite * pSprite = GLib::Sprites::CreateSprite(Edges, 0.1f, Color, UVs);
-	if (pSprite == nullptr)
-	{
-		GLib::Release(pTexture);
-		return nullptr;
-	}
-
-	// Bind the texture to sprite
-	GLib::Sprites::SetTexture(*pSprite, *pTexture);
-	
-	Engine::m_mutex.unlock();
-	
-	return pSprite;
-}
 
 void ReadFloatArrary(lua_State *i_pState, int i_index, float * o_Array, size_t i_numFloats) {
 	lua_pushnil(i_pState);
@@ -95,14 +39,17 @@ namespace Engine {
 class ProcessFile : public Engine::JobSystem::IJob
 {
 public:
-	ProcessFile(const char * i_pFilename, int &i_numOfActors, SmartPtr<GameObject> &o_pActor, PhysicsInfo &o_phXInfo, Renderable &o_renderInfo, std::map<Engine::HashedString, Engine::JobSystem::JobQueueData *> &Queues) :
+	ProcessFile(const char * i_pFilename, int &i_numOfActors, SmartPtr<GameObject> &o_pActor, PhysicsInfo &o_phXInfo, 
+		AABB i_actorBB, Renderable & o_renderable, GLib::Sprites::Sprite * i_Sprite, std::map<Engine::HashedString, Engine::JobSystem::JobQueueData *> &Queues) :
 		IJob("ProcessFile"),
 		m_pFilename(i_pFilename),
 		//m_luaState(i_luaState),
 		numOfActors(i_numOfActors),
-		pActor(o_pActor),
-		phXInfo(o_phXInfo),
-		renderInfo(o_renderInfo),
+		m_pActor(o_pActor),
+		m_phXInfo(o_phXInfo),
+		m_actorBB(i_actorBB),
+		m_renderable(o_renderable),
+		m_Sprite(i_Sprite),
 		Queues(Queues)
 	{
 		assert(m_pFilename);
@@ -154,16 +101,16 @@ public:
 				ReadFloatArrary(pLuaState, -1, position, 2);
 				lua_pop(pLuaState, 1);
 
-				//health
-				uint8_t health;
-				lua_pushstring(pLuaState, "health");
+				//initial rotation
+				float zRotation;
+				lua_pushstring(pLuaState, "zRotation");
 				result = lua_gettable(pLuaState, -2);
 				if (result == LUA_TNUMBER) {
-					health = (uint8_t)lua_tonumber(pLuaState, -1);
+					zRotation = (float)lua_tonumber(pLuaState, -1);
 				}
 				else {
 					DEBUG_PRINT_INFO("Didn't find string looking for health. \n");
-					health = 0;
+					zRotation = 0.0f;
 				}
 				lua_pop(pLuaState, 1);
 
@@ -193,26 +140,31 @@ public:
 				}
 				lua_pop(pLuaState, 1);
 
-				//sprite
-				const char * pSpriteDir = nullptr;
-				lua_pushstring(pLuaState, "sprite");
+				//initial velocity
+				float velocity[2];
+				lua_pushstring(pLuaState, "velocity");
 				result = lua_gettable(pLuaState, -2);
-				assert(result == LUA_TSTRING);
-				pSpriteDir = lua_tostring(pLuaState, -1);
-				assert(pSpriteDir != nullptr);
-				pSpriteDir = dupstring(pSpriteDir);
+				assert(result == LUA_TTABLE);
+				ReadFloatArrary(pLuaState, -1, velocity, 2);
 				lua_pop(pLuaState, 1);
 
 				lua_pop(pLuaState, 1);
 				int stack_items = lua_gettop(pLuaState);
 				assert(stack_items == 0);
-
-				pActor = new GameObject(pName, Vector2D(position[0], position[1]), health);
+//******************************************************************************************************
+				//initialize new gameObject
+				m_pActor = new GameObject(pName, Vector2D(position[0], position[1]), 100);
 				delete[] pName;
-				phXInfo = PhysicsInfo(pActor, mass, drag);
-				renderInfo.m_pObject = pActor;
-				renderInfo.m_pSprite = CreateSprite(pSpriteDir, phXInfo);
-				delete[] pSpriteDir;
+				m_pActor->zRotationDegree = zRotation;
+
+				//initialize new phyiscsInfo
+				m_phXInfo = PhysicsInfo(m_pActor, mass, drag);
+				m_phXInfo.m_BoundingBox = m_actorBB;
+				m_phXInfo.setVelocity(Vector2D(velocity[0], velocity[1]));
+
+				//initialize new renderable
+				m_renderable.m_pObject = m_pActor;
+				m_renderable.m_pSprite = m_Sprite;
 			}
 
 			delete[] pFileContents;
@@ -228,11 +180,12 @@ public:
 
 private:
 	const char *		m_pFilename;
-	//lua_State * m_luaState;
 	int &numOfActors;
-	SmartPtr<GameObject> &pActor;
-	PhysicsInfo &phXInfo;
-	Renderable &renderInfo;
+	SmartPtr<GameObject> & m_pActor;
+	PhysicsInfo & m_phXInfo;
+	AABB m_actorBB;
+	Renderable & m_renderable;
+	GLib::Sprites::Sprite * m_Sprite;
 	std::map<Engine::HashedString, Engine::JobSystem::JobQueueData *> &Queues;
 };
 
@@ -244,9 +197,11 @@ numOfActors(i_numOfActors)
 
 }
 
-void ActorCreationManager::CreateActor(const char * i_pScriptFilename, SmartPtr<GameObject> &o_pActor, PhysicsInfo &o_phXInfo, Renderable &o_renderInfo) {
-	
-	ProcessFile * pProcessActor = new ProcessFile(i_pScriptFilename, numOfActors, o_pActor, o_phXInfo, o_renderInfo, Queues);
+void ActorCreationManager::CreateActor(const char * i_pScriptFilename, SmartPtr<GameObject> &o_pActor, 
+	PhysicsInfo &o_phXInfo, AABB i_actorBB, Renderable & o_renderable, GLib::Sprites::Sprite * i_Sprite) {
+
+	ProcessFile * pProcessActor = new ProcessFile(i_pScriptFilename, numOfActors, o_pActor, o_phXInfo, 
+		i_actorBB, o_renderable, i_Sprite, Queues);
 	assert(pProcessActor);
 	Engine::JobSystem::RunJob(pProcessActor, "Default", Queues);
 }
@@ -262,5 +217,4 @@ void ActorCreationManager::shutDownACM() {
 	}
 	
 	Engine::JobSystem::Shutdown(Queues);
-
 }

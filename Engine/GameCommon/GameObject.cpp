@@ -5,25 +5,26 @@
 unsigned int GameObject::IDPool = 0;
 GameObject::GameObject() {}
 GameObject::GameObject(const char * i_pName, const Vector2D &i_position, uint8_t i_life):
-//velocity(Vector2D(0, 0)),
-//mass(1000),
+//forwardVector(Vector2D(0, 1)),
 position(i_position),
 zRotationDegree(0),
 ID(IDPool),
 life(i_life),
 pName(dupstring(i_pName ? i_pName : "Unnamed")),
+active(true),
 m_pController(nullptr)
 {//constructor
 	IDPool++;
 }
 
 GameObject::GameObject(const GameObject &i_other):
-	//velocity(i_other.velocity),
-	//mass(i_other.mass),
+//forwardVector(i_other.forwardVector),
 position (i_other.position),
+zRotationDegree(i_other.zRotationDegree),
 ID(i_other.ID),
 life(i_other.life),
 pName(dupstring(i_other.pName ? i_other.pName : "Unnamed")),
+active(i_other.active),
 m_pController(nullptr)
 {//copy constructor
 	IDPool++;
@@ -36,32 +37,33 @@ GameObject & GameObject::operator=(const GameObject &i_other) {//assignment oper
 	ID = i_other.ID;
 	pName = dupstring(i_other.pName ? i_other.pName : "Unnamed");
 	position = i_other.position;
+	zRotationDegree = i_other.zRotationDegree;
 	life = i_other.life;
+	active = i_other.active;
 	m_pController = nullptr;
-	//mass = i_other.mass;
-	//velocity = i_other.velocity;
+	//forwardVector = i_other.forwardVector;
 	return *this;
 }
 
 GameObject::GameObject(GameObject &&i_other):
-	//velocity(i_other.velocity),
-	//mass(i_other.mass),
+//forwardVector(i_other.forwardVector),
 position(i_other.position),
+zRotationDegree(i_other.zRotationDegree),
 ID(i_other.ID),
 life(i_other.life),
-pName(i_other.pName)
+pName(i_other.pName),
+active(i_other.active)
 {//move copy constructor
-	i_other.pName = nullptr;
 	m_pController = nullptr;
 }
 GameObject & GameObject::operator=(GameObject &&i_other) {//move assignment operator
 	std::swap(ID, i_other.ID);
 	std::swap(pName, i_other.pName);
 	std::swap(position, i_other.position);
+	std::swap(zRotationDegree, i_other.zRotationDegree);
 	std::swap(life, i_other.life);
+	std::swap(active, i_other.active);
 	m_pController = nullptr;
-	//std::swap(mass, i_other.mass);
-	//std::swap(velocity, i_other.velocity);
 	return *this;
 }
 GameObject::~GameObject() {

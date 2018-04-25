@@ -1,6 +1,9 @@
 #pragma once
-#include "Engine.h"
+#include "GameCommon\GameObjectController.h"
+#include "GameCommon\GameObject.h"
 #include "Core\DataType\WeakPtr.h"
+#include "Core\Messaging\Messaging.h"
+
 class SmartMonsterController : public GameObjectController {
 public:
 	SmartMonsterController(WeakPtr<GameObject> i_pGameObject, WeakPtr<GameObject> i_pFocusObject);
@@ -8,6 +11,7 @@ public:
 	WeakPtr<GameObject> getGameObject() const;
 	Vector2D updateGameObject() override;
 	void setFocusObject(WeakPtr<GameObject> i_pObject);
+	void hit(PhysicsInfo & i_phyXInfo) override;
 	~SmartMonsterController() override;
 
 	//SmartMonsterController(const SmartMonsterController &i_other);

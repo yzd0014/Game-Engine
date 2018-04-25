@@ -14,4 +14,6 @@
 #include "Core\Math\Vector4D.h"
 #include "Core\Messaging\Messaging.h"
 #include "Core\InputSystem\InputHub.h"
+#include "Core\Profiling\Profiling.h"
+
 

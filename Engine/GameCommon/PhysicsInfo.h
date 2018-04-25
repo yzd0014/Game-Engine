@@ -34,12 +34,17 @@ public:
 	}
 	inline void setVelocity(Vector2D i_v) {
 		velocity = i_v;
+		frameVelocity = velocity;
 	}
 	inline float getMass() {
 		return mass;
 	}
 	inline float getDrag() {
 		return drag;
+	}
+	inline void propagateVelToController() {
+		SmartPtr<GameObject> temp_gameObject = m_pObject.Aquire();
+		temp_gameObject->m_pController->physicsVel = velocity;
 	}
 //private:
 	WeakPtr<GameObject> m_pObject;

@@ -16,15 +16,15 @@
     <Filter Include="UnitTest">
       <UniqueIdentifier>{c242cf5e-8965-48bd-af24-5366e91ceecd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Character">
+      <UniqueIdentifier>{5440b1eb-fb2b-4fc7-8144-0ebd202da6bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FakedGlobals">
+      <UniqueIdentifier>{9f29abb1-fcbc-4c90-a6b5-4ef5087b5348}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MonsterChase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\PlayerController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\SmartMonsterController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UnitTest\SmartPointer_UnitTest.cpp">
@@ -39,16 +39,43 @@
     <ClCompile Include="UnitTest\Collision_UnitTest.cpp">
       <Filter>UnitTest</Filter>
     </ClCompile>
+    <ClCompile Include="UnitTest\Matrix_StressUnitTest.cpp">
+      <Filter>UnitTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\BulletController.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\PlayerController.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\SmartMonsterController.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="FakedGlobals\GlobalVarWrapper.cpp">
+      <Filter>Source Files\FakedGlobals</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\AsteroidController.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character\PlayerController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character\SmartMonsterController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UnitTest\HeapManager_UnitTest.h">
       <Filter>UnitTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\SmartMonsterController.h">
+      <Filter>Source Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\PlayerController.h">
+      <Filter>Source Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\BulletController.h">
+      <Filter>Source Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="FakedGlobals\GlobalVarWrapper.h">
+      <Filter>Source Files\FakedGlobals</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\AsteroidController.h">
+      <Filter>Source Files\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

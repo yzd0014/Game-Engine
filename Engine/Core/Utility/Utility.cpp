@@ -6,6 +6,7 @@
 
 namespace Engine
 {
+	
 	void ConsolePrint(const char * i_fmt, ...) {
 		const size_t lenTemp = 256;
 		char strTemp[lenTemp] = "Debug: ";
@@ -24,15 +25,14 @@ namespace Engine
 		OutputDebugStringA(strOutput);
 
 	}
-
 	char * duplicateString(const char * i_string) {
 		size_t len = strlen(i_string);
 		char * string = new char[len + 1];
 		strcpy_s(string, len + 1, i_string);
 		return string;
 	}
-
 	bool floatEqual(float i_left, float i_right) {
-		return abs(i_left - i_right) < 0.0001f;
+		return abs(i_left - i_right) < 0.001f;
 	}
+	
 }
