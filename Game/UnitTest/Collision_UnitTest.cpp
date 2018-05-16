@@ -4,7 +4,6 @@
 #include <assert.h>
 #include <time.h>
 
-#include "Character/SmartMonsterController.h"
 #include "Character/PlayerController.h"
 #include "Engine.h"
 bool Collision_UnitTest() {

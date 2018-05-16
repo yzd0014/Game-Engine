@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MonsterChase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UnitTest\SmartPointer_UnitTest.cpp">
       <Filter>UnitTest</Filter>
     </ClCompile>
@@ -48,22 +45,19 @@
     <ClCompile Include="Character\PlayerController.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Character\SmartMonsterController.cpp">
-      <Filter>Source Files\Character</Filter>
-    </ClCompile>
     <ClCompile Include="FakedGlobals\GlobalVarWrapper.cpp">
       <Filter>Source Files\FakedGlobals</Filter>
     </ClCompile>
     <ClCompile Include="Character\AsteroidController.cpp">
       <Filter>Source Files\Character</Filter>
     </ClCompile>
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitTest\HeapManager_UnitTest.h">
       <Filter>UnitTest</Filter>
-    </ClInclude>
-    <ClInclude Include="Character\SmartMonsterController.h">
-      <Filter>Source Files\Character</Filter>
     </ClInclude>
     <ClInclude Include="Character\PlayerController.h">
       <Filter>Source Files\Character</Filter>

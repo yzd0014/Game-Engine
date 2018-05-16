@@ -54,28 +54,37 @@ namespace Engine {
 
 		float T_close_B2Ax;
 		float T_open_B2Ax;
+		
+		if (floatEqual(D_close_Ax, 0.0f))D_close_Ax = 0.0f;
+		if (floatEqual(D_open_Ax, 0.0f))D_open_Ax = 0.0f;
 
 		float AMinusB_x = i_object_A.m_BoundingBox.center.x - BCenterInA.x;//cache the relative locoation
 		if (BVelocityInA.x != 0) {
-			if (floatEqual(D_close_Ax, 0.0f))D_close_Ax = 0.0f;
-			if (floatEqual(D_open_Ax, 0.0f))D_open_Ax = 0.0f;
 			T_close_B2Ax = D_close_Ax / BVelocityInA.x;
 			T_open_B2Ax = D_open_Ax / BVelocityInA.x;
-
-			if (T_close_B2Ax <= 0 && T_open_B2Ax <= 0) {
+			//there are three possible situations in terms of object B's state when calculation is done in A's coordinate system
+			//1. B is approaching A
+			//2. B is in between A
+			//3. B is moving away from A
+			if (T_close_B2Ax <= 0 && T_open_B2Ax <= 0) {// B is moving away from A, so there is no collision
 				return false;
 			}
-			if (T_close_B2Ax * T_open_B2Ax < 0) {
-				T_close_B2Ax = fakeZero;
-				T_open_B2Ax = i_dt;
+			if (T_close_B2Ax * T_open_B2Ax < 0) {// B is in between A, collision happens at the very begining of delta time, set overlap flag
+				if (BVelocityInA.x > 0) {
+					T_close_B2Ax = fakeZero;
+				}
+				else {
+					T_open_B2Ax = T_close_B2Ax;
+					T_close_B2Ax = fakeZero;
+				}
 			}
 
-			if (T_close_B2Ax > T_open_B2Ax) {
+			if (T_close_B2Ax > T_open_B2Ax) {//B is approaching A, swap close and open time to hanle negative velocity
 				float temp = T_close_B2Ax;
 				T_close_B2Ax = T_open_B2Ax;
 				T_open_B2Ax = temp;
 			}
-			if (T_close_B2Ax > i_dt) {
+			if (T_close_B2Ax > i_dt) {//B is apporaching A, collision won't happen within current delta time
 				return false;
 			}
 		}
@@ -105,10 +114,12 @@ namespace Engine {
 		float T_close_B2Ay;
 		float T_open_B2Ay;
 
+		if (floatEqual(D_close_Ay, 0.0f))D_close_Ay = 0.0f;
+		if (floatEqual(D_open_Ay, 0.0f))D_open_Ay = 0.0f;
+
 		float AMinusB_y = i_object_A.m_BoundingBox.center.y - BCenterInA.y;//cache the relative locoation
 		if (BVelocityInA.y != 0) {
-			if (floatEqual(D_close_Ay, 0.0f))D_close_Ay = 0.0f;
-			if (floatEqual(D_open_Ay, 0.0f))D_open_Ay = 0.0f;
+			
 			T_close_B2Ay = D_close_Ay / BVelocityInA.y;
 			T_open_B2Ay = D_open_Ay / BVelocityInA.y;
 
@@ -116,8 +127,13 @@ namespace Engine {
 				return false;
 			}
 			if (T_close_B2Ay * T_open_B2Ay < 0) {
-				T_close_B2Ay = fakeZero;
-				T_open_B2Ay = i_dt;
+				if (BVelocityInA.y > 0) {
+					T_close_B2Ay = fakeZero;
+				}
+				else {
+					T_open_B2Ay = T_close_B2Ay;
+					T_close_B2Ay = fakeZero;
+				}
 			}
 
 			if (T_close_B2Ay > T_open_B2Ay) {
@@ -173,17 +189,24 @@ namespace Engine {
 		float T_close_A2Bx;
 		float T_open_A2Bx;
 
+		if (floatEqual(D_close_Bx, 0.0f))D_close_Bx = 0.0f;
+		if (floatEqual(D_open_Bx, 0.0f))D_open_Bx = 0.0f;
+
 		float BMinusA_x = i_object_B.m_BoundingBox.center.x - ACenterInB.x;//cache the relative locoation
 		if (AVelocityInB.x != 0) {
-			if (floatEqual(D_close_Bx, 0.0f))D_close_Bx = 0.0f;
-			if (floatEqual(D_open_Bx, 0.0f))D_open_Bx = 0.0f;
+			
 			T_close_A2Bx = D_close_Bx / AVelocityInB.x;
 			T_open_A2Bx = D_open_Bx / AVelocityInB.x;
 
 			if (T_close_A2Bx <= 0  && T_open_A2Bx <= 0)return false;
 			if (T_close_A2Bx * T_open_A2Bx < 0) {
-				T_close_A2Bx = fakeZero;
-				T_open_A2Bx = i_dt;
+				if (AVelocityInB.x > 0) {
+					T_close_A2Bx = fakeZero;
+				}
+				else {
+					T_open_A2Bx = T_close_A2Bx;
+					T_close_A2Bx = fakeZero;
+				}
 			}
 			if (T_close_A2Bx > T_open_A2Bx) {
 				float temp = T_close_A2Bx;
@@ -220,10 +243,12 @@ namespace Engine {
 		float T_close_A2By;
 		float T_open_A2By;
 
+		if (floatEqual(D_close_By, 0.0f))D_close_By = 0.0f;
+		if (floatEqual(D_open_By, 0.0f))D_open_By = 0.0f;
+
 		float BMinusA_y = i_object_B.m_BoundingBox.center.y - ACenterInB.y;//cache the relative locoation
 		if (AVelocityInB.y != 0) {
-			if (floatEqual(D_close_By, 0.0f))D_close_By = 0.0f;
-			if (floatEqual(D_open_By, 0.0f))D_open_By = 0.0f;
+			
 			T_close_A2By = D_close_By / AVelocityInB.y;
 			T_open_A2By = D_open_By / AVelocityInB.y;
 
@@ -231,8 +256,13 @@ namespace Engine {
 				return false;
 			}
 			if (T_close_A2By * T_open_A2By < 0) {
-				T_close_A2By = fakeZero;
-				T_open_A2By = i_dt;
+				if (AVelocityInB.y > 0) {
+					T_close_A2By = fakeZero;
+				}
+				else {
+					T_open_A2By = T_close_A2By;
+					T_close_A2By = fakeZero;
+				}
 			}
 			if (T_close_A2By > T_open_A2By) {
 				float temp = T_close_A2By;

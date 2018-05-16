@@ -1,4 +1,4 @@
-//Yitong 4/24/2018
+//Yitong 5/4/2018
 #include <iostream>
 #include <stdio.h>
 #include <vector>
@@ -116,9 +116,8 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 			// IMPORTANT: We need to let GLib do it's thing. 		
 			GLib::Service(bQuit);
 			//********************run AI*****************************************************************
-			allPhysXInfos[player].propagateVelToController();
-			allPhysXInfos[player].forcedApplied = p_playerController->updateGameObject();
-			
+			p_playerController->updateGameObject();
+
 			size_t asteroidsCounter = asteroidControllers.size();
 			for (size_t i = 0; i < asteroidsCounter; i++) {
 				asteroidControllers[i]->updateGameObject();
@@ -131,7 +130,7 @@ int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_l
 			
 			//spawn new asteroids
 			if (asteroidControllers.size() < 8) spawnGate = true;
-			else if (asteroidControllers.size() > 10) spawnGate = false;
+			else if (asteroidControllers.size() > 12) spawnGate = false;
 			if (spawnGate) {
 				createAsteroids(fakedGlobals, spawnLoc[locPicker]);
 				locPicker++;

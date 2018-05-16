@@ -15,7 +15,6 @@ PlayerController::PlayerController(WeakPtr<GameObject> i_pGameObject, Messaging 
 	assert(m_pMessages);
 	m_pMessages->ButtonChangeReceivers.AddDelegate(Delegate<unsigned int, bool>::Create<PlayerController, &PlayerController::HandleButtonMovement>(this));
 	hitEventOverided = true;
-	physicsVel = Vector2D(0.0f, 0.0f);
 }
 
 void PlayerController::setGameObject(WeakPtr<GameObject> i_pObject){
@@ -25,13 +24,13 @@ WeakPtr<GameObject> PlayerController::getGameObject() const {
 	return m_pGameObject;
 }
 
-Vector2D PlayerController::updateGameObject() {
+void PlayerController::updateGameObject() {
 	SmartPtr<GameObject> temp_gameObject = m_pGameObject.Aquire();
 	Vector2D drivenForece(0.0f, 0.0f);
 	if (temp_gameObject->active == true) {
 		float absRot = temp_gameObject->zRotationDegree + 90;//absolute rotation of the player
 		if (upKeyHold == true) {//apply forward force
-			if (physicsVel.getMagnitude() < 600) {
+			if (m_globals.m_AllPhysXInfos[0].velocity.getMagnitude() < 600) {
 				float force_x = (float)(800.0f * cos(absRot / 180 * PI));
 				float force_y = (float)(800.0f * sin(absRot / 180 * PI));
 				drivenForece = Vector2D(force_x, force_y);
@@ -52,14 +51,23 @@ Vector2D PlayerController::updateGameObject() {
 		else if (temp_gameObject->position.y < -360) temp_gameObject->position.y = 360;
 
 	}
-	return drivenForece;
+	m_globals.m_AllPhysXInfos[0].forceApplied = drivenForece;
 }
 
 void PlayerController::hit(PhysicsInfo & i_phyXInfo) {
+	SmartPtr<GameObject> pObjectHit = i_phyXInfo.m_pObject.Aquire();
+	char * nameExpected_0 = { "RockBig" };
+	char * nameExpected_1 = {"RockSmall"};
 	SmartPtr<GameObject> pSelfObj = m_pGameObject.Aquire();
-	pSelfObj->active = false;
-	pSelfObj->position = Vector2D(0, 500);
-	m_globals.m_AllPhysXInfos[0].setVelocity(Vector2D(0, 0));
+
+	if ((strcmp(pObjectHit->pName, nameExpected_0) == 0 || strcmp(pObjectHit->pName, nameExpected_1) == 0)&&
+		pSelfObj->active == true && pObjectHit->active == true) {
+		
+		pSelfObj->active = false;
+		pSelfObj->position = Vector2D(0, 500);
+		m_globals.m_AllPhysXInfos[0].setVelocity(Vector2D(0, 0));
+	}
+	
 }
 
 void PlayerController::HandleButtonMovement(unsigned int i_VKey, bool b_WentDown) {

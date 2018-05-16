@@ -9,10 +9,9 @@ m_pGameObject(i_pGameObject),
 m_globals(i_globals)
 {
 	hitEventOverided = true;
-	physicsVel = Vector2D(0.0f, 0.0f);
 }
 
-Vector2D BulletController::updateGameObject() {
+void BulletController::updateGameObject() {
 	//delete bullet when it's out of range
 	SmartPtr<GameObject> temp_gameObject = m_pGameObject.Aquire();
 	if (temp_gameObject->position.x > 640) {
@@ -27,8 +26,6 @@ Vector2D BulletController::updateGameObject() {
 	else if (temp_gameObject->position.y < -360) {
 		temp_gameObject->active = false;
 	}
-	
-	return Vector2D(0.0f, 0.0f);
 }
 
 void BulletController::hit(PhysicsInfo & i_phyXInfo) {

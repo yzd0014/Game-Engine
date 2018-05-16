@@ -9,7 +9,7 @@ public:
 		m_pObject(nullptr),
 		velocity(Vector2D(0, 0)),
 		frameVelocity(Vector2D(0, 0)),
-		forcedApplied(Vector2D(0, 0)),
+		forceApplied(Vector2D(0, 0)),
 		mass(0),
 		drag(0)
 	{
@@ -18,7 +18,7 @@ public:
 	m_pObject(i_pObject),
 	velocity(Vector2D(0, 0)),
 	frameVelocity(Vector2D(0, 0)),
-	forcedApplied(Vector2D(0, 0)),
+	forceApplied(Vector2D(0, 0)),
 	mass(i_mass),
 	drag(i_drag)
 	{
@@ -42,15 +42,12 @@ public:
 	inline float getDrag() {
 		return drag;
 	}
-	inline void propagateVelToController() {
-		SmartPtr<GameObject> temp_gameObject = m_pObject.Aquire();
-		temp_gameObject->m_pController->physicsVel = velocity;
-	}
+	
 //private:
 	WeakPtr<GameObject> m_pObject;
 	Vector2D velocity;
 	Vector2D frameVelocity;
-	Vector2D forcedApplied;
+	Vector2D forceApplied;
 	AABB m_BoundingBox;
 	float mass;
 	float drag;

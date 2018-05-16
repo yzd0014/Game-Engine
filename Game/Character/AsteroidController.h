@@ -7,7 +7,7 @@ public:
 	AsteroidController(WeakPtr<GameObject> i_pGameObject);
 	WeakPtr<GameObject> getGameObject() const override;
 	void setGameObject(WeakPtr<GameObject> i_pObject) override;
-	Vector2D updateGameObject() override;
+	void updateGameObject() override;
 	void hit(PhysicsInfo & i_phyXInfo) override;
 	~AsteroidController() override;
 private:

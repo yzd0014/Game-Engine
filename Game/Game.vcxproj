@@ -239,9 +239,8 @@
     <ClCompile Include="Character\AsteroidController.cpp" />
     <ClCompile Include="Character\BulletController.cpp" />
     <ClCompile Include="Character\PlayerController.cpp" />
-    <ClCompile Include="Character\SmartMonsterController.cpp" />
     <ClCompile Include="FakedGlobals\GlobalVarWrapper.cpp" />
-    <ClCompile Include="MonsterChase.cpp" />
+    <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="UnitTest\Collision_UnitTest.cpp" />
     <ClCompile Include="UnitTest\HeapManager_UnitTest.cpp" />
     <ClCompile Include="UnitTest\Matrix_StressUnitTest.cpp" />
@@ -252,7 +251,6 @@
     <ClInclude Include="Character\AsteroidController.h" />
     <ClInclude Include="Character\BulletController.h" />
     <ClInclude Include="Character\PlayerController.h" />
-    <ClInclude Include="Character\SmartMonsterController.h" />
     <ClInclude Include="FakedGlobals\GlobalVarWrapper.h" />
     <ClInclude Include="UnitTest\HeapManager_UnitTest.h" />
   </ItemGroup>

@@ -10,7 +10,7 @@ public:
 	PlayerController(WeakPtr<GameObject> i_pGameObject, Messaging * i_pMessages, GlobalVarWrapper &i_globals);
 	void setGameObject(WeakPtr<GameObject> i_pObject) override;
 	WeakPtr<GameObject> getGameObject() const override;
-	Vector2D updateGameObject() override;
+	void updateGameObject() override;
 	void HandleButtonMovement(unsigned int i_VKey, bool b_WentDown);
 	void hit(PhysicsInfo & i_phyXInfo) override;
 	~PlayerController() override;
