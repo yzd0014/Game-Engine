@@ -1,6 +1,6 @@
 #include "stdint.h"
 #include "assert.h"
-
+#include <intrin.h> 
 #include "BitArray.h"
 #include "HeapManager.h"
 #include "Core\Utility\Utility.h"

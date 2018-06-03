@@ -5,50 +5,18 @@ D: rotate clockwise
 Space Bar: fire
 
 Players only have one life, after the spaceship is hit by asteroids, the ship disappears and the game ends.
-==================================================================================================================
+========================================================================================================
 Implementation Explained
-The reason why I choose Asteroids is because the collision between asteroids will throughly test the robustness 
-of my collision detection function; game objects are created and deleted constantly, which will test my smart/weak 
-pointer is working properly; spaceship's movement will test my physics system.
+The reason why I choose Asteroids is because the collision between asteroids will throughly test the robustness of my collision detection function; game objects are created and deleted constantly, which will test my smart/weak pointer is working properly; spaceship's movement will test my physics system.
 
 Engine/EngineHigh/CollisionSystem/CollisionDetection.cpp
-	line58/59: matrix multiplication will generate deviation for outcomes. This deviation will cause errors when two 
-	objects are just about to collide or just collided. For example, when two objects are just about to collide, the distance 
-	between the two objects is zero. But due to deviation, it can be a negative or positive number that is close to zero
-	instead of zero, which leads collision detection function to generate wrong results. So these two lines of code will
-	set the distance to zero manually when the distance is a number that is close to zero, which is what guarantees the 
-	robustness of the collision function. 
+	line58/59: matrix multiplication will generate deviation for outcomes. This deviation will cause errors when two objects are just about to collide or just collided. For example, when two objects are just about to collide, the distance between the two objects is zero. But due to deviation, it can be a negative or positive number that is close to zero instead of zero, which leads collision detection function to generate wrong results. So these two lines of code will set the distance to zero manually when the distance is a number that is close to zero, which is what guarantees the robustness of the collision function. 
 
-	line74/78/93: the collision detection is able to distinguish between hit and overlap like Unreal. Overlap means during delta time
-	the close time is zero. So when close time is zero, collision can never be resolved and at collision 
-	resolving stage, the algorithm will be stuck at an infinite loop. So as soon as there is an overlap, the close time 
-	will be set to a negative number. This will allow users to handle overlap as they want(collision resolving function won't
-	run when it's an overlap). Also it can be used to generate correct normal easily as overlap flag(faked zero) is different
-	from zero(the maximum close time will decide the actual close time, that's why the flag for overlap is a negative number). 
-	In Asteroids, for the most of time it's all about hit. But when an asteroid is placed from one side of screen to the 
-	other one, the new location of the asteroid may already overlap with another asteroid. This is where collision between 
-	objects need to be ignored by distinguishing hit and overlap.
+	line74/78/93: the collision detection is able to distinguish between hit and overlap like Unreal. Overlap means during delta time the close time is zero. So when close time is zero, collision can never be resolved and at collision resolving stage, the algorithm will be stuck at an infinite loop. So as soon as there is an overlap, the close time will be set to a negative number. This will allow users to handle overlap as they want(collision resolving function won't run when it's an overlap). Also it can be used to generate correct normal easily as overlap flag(faked zero) is different from zero(the maximum close time will decide the actual close time, that's why the flag for overlap is a negative number). In Asteroids, for the most of time it's all about hit. But when an asteroid is placed from one side of screen to the other one, the new location of the asteroid may already overlap with another asteroid. This is where collision between objects need to be ignored by distinguishing hit and overlap.
 	
 	In order to make sure every collision is just right, I have two stress tests. 
-	Link for the first stress test: https://www.youtube.com/watch?v=opUYNl0IAd8 
-	The video for the first test is less than 2 minutes, but in realty I run this test for 30 minutes. Three asteroids are affected
-	by force that is pointed to the ship. So during test, all three asteroids are always trying to penetrate the ship. Without 
-	eliminating deviation at line58/59, some of three asteroids will eventually penetrate the ship. But now with line58/59 the edge 
-	cases are handled. 
-	Link for the second stress test: https://www.youtube.com/watch?v=cDXY5A_fG5Y
-	In this stress test, only one bullet is fired. The bullet velocity is 500000 pixels/s. The goal of this test is to make sure that when 
-	the bullet is really fast, the collision detection is still working properly. In the video, the bullet is bouncing back 
-	and forth between the asteroid and the ship, which means the bullet never gets a chance to go through either the asteroid 
-	or the ship.
+	Link for the first stress test: https://www.youtube.com/watch?v=opUYNl0IAd8 The video for the first test is less than 2 minutes, but in realty I run this test for 30 minutes. Three asteroids are affected by force that is pointed to the ship. So during test, all three asteroids are always trying to penetrate the ship. Without eliminating deviation at line58/59, some of three asteroids will eventually penetrate the ship. But now with line58/59 the edge cases are handled. 
+	Link for the second stress test: https://www.youtube.com/watch?v=cDXY5A_fG5Y In this stress test, only one bullet is fired. The bullet velocity is 500000 pixels/s. The goal of this test is to make sure that when the bullet is really fast, the collision detection is still working properly. In the video, the bullet is bouncing back and forth between the asteroid and the ship, which means the bullet never gets a chance to go through either the asteroid or the ship.
 	
 Engine/GameCommon/GameObjectController.h
-	line 15/16/17: Since updateGameObject() is in controllers, thus the controller needs to know a lot of information about
-	the entire game object. So the controller holds three indexes that will indicate where its gameObject, physicsInfo and 
-	renderable are in arrays. For gameObject array, phyiscsInfo array and renderable array, no matter it's a bullet or a player, 
-	they are not distinguished in all these three arrays, as physicsInfo is all about physics update, renderable is all about 
-	rendering, all elements in arrays can be handled in the same way. While, each type of controllers inherits controller
-	interface, and each type of controllers has its own arrays(bullet controllers are in one array, asteriods controllers are in 
-	a different one). So controllers will serve the purpose of a translation layer. The controller itself can map where all 
-	other information that describes the entire game object is. More importantly, it will allow users to delete gameObject, 
-	phyiscsInfo and renderable easily as no searching is needed. By distinguishing each type of controllers, the program is 
-	aware of the state of each type of game objects, for example, the total number of asteroids in the world. 
+	line 15/16/17: Since updateGameObject() is in controllers, thus the controller needs to know a lot of information about the entire game object. So the controller holds three indexes that will indicate where its gameObject, physicsInfo and renderable are in arrays. For gameObject array, phyiscsInfo array and renderable array, no matter it's a bullet or a player, they are not distinguished in all these three arrays, as physicsInfo is all about physics update, renderable is all about rendering, all elements in arrays can be handled in the same way. While, each type of controllers inherits controller interface, and each type of controllers has its own arrays(bullet controllers are in one array, asteriods controllers are in a different one). So controllers will serve the purpose of a translation layer. The controller itself can map where all other information that describes the entire game object is. More importantly, it will allow users to delete gameObject, phyiscsInfo and renderable easily as no searching is needed. By distinguishing each type of controllers, the program is aware of the state of each type of game objects, for example, the total number of asteroids in the world. 
